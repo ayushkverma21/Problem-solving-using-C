@@ -51,7 +51,7 @@ for(j = d;j<b;j++){
 }
 printf("\n");
 }
-
+printf("\n \n");
 fclose(fp);
 cc = complement(a);
 for(i=0;i<c;i++){
@@ -60,11 +60,12 @@ for(i=0;i<c;i++){
     }
     printf("\n");
 }
+
 return 0 ;
 }
 
 struct cubelist complement(struct cubelist cube){
-
+int m = 0;
 for(i=0;i<c;i++){
     for(j=0;j<b;j++){
         if(cube.u[i][j] == 0){
@@ -72,8 +73,9 @@ for(i=0;i<c;i++){
         }
     }
 }
-if(m >=((c*b)-b)){
+if(m =((c*b)-b)){
 for(i=0;i<c;i++){
+        for(j=0;j<b;j++){
     if(cube.u[i][j] == 10){
         cube.u[i][j] = 1;
     }
@@ -81,22 +83,22 @@ for(i=0;i<c;i++){
             cube.u[i][j] = 10;
 
     }
-    else if((cube.u[i][j]==11)){
-        cube.u[i][j] = 0;
-    }
-    else{
-        cube.u[i][j]=11;
-    }
+        }
 }
+return cube;
 }
 else{
-l = binate(cube);
-c5 = positivecofactor(cube,l);
-c6 = negativecofactor(cube,l);
-    struct cubelist p = complement(c5);
-    struct cubelist n = complement(c6);
-    p = and(p,l);
-    n = andd(n,l);
+
+
+
+
+    struct cubelist p = complement(positivecofactor(cube,binate(cube)));
+    struct cubelist n = complement(negativecofactor(cube,binate(cube)));
+
+
+   p = and(p,binate(cube));
+  n = andd(n,binate(cube));
+
     return (or(p,n));
 
 
@@ -108,10 +110,10 @@ for(i=0;i<c;i++){
 
         if(cube1.u[i][q] == 10){
                 for(j=0;j<b;j++){
-            cube1.u[i][j] == 0;}}
+            cube1.u[i][j] = 0;}}
 
     else if(cube1.u[i][q]== 1){
-       cube1.u[i][q]==11;
+       cube1.u[i][q]=11;
     }
 }
 return cube1;
@@ -122,10 +124,10 @@ for(i=0;i<c;i++){
 
         if(cube2.u[i][q] == 01){
                 for(j=0;j<b;j++){
-            cube2.u[i][j] == 0;}}
+            cube2.u[i][j] = 0;}}
 
-    else if(cube2.u[i][q]== 10){
-       cube2.u[i][q]==11;
+    else if(cube2.u[i][q]==10){
+       cube2.u[i][q]=11;
     }
 }
 return cube2;
@@ -158,24 +160,60 @@ return t;
 }
 
 struct cubelist and(struct cubelist c7,int w){
+
     for(i=0;i<c;i++){
-        c7.u[i][w]=01;
+            if(c7.u[i][w]==11){
+        c7.u[i][w]=01;}
     }
 return c7;
 }
 struct cubelist andd(struct cubelist c8,int w){
     for(i=0;i<c;i++){
+            if(c8.u[i][w]==11){
         c8.u[i][w]=10;
-    }
+    }}
 return c8;
 }
 struct cubelist or(struct cubelist c9,struct cubelist ca){
 struct cubelist cb;
 for(i=0;i<c;i++){
     for(j=0;j<b;j++){
+             if(c9.u[i][j]==11){
+        c9.u[i][j]=12;
+    }}
+    for(j=0;j<b;j++){
+             if(ca.u[i][j]==11){
+        ca.u[i][j]=12;
+    }}
+    for(j=0;j<b;j++){
      cb.u[i][j] = c9.u[i][j] + ca.u[i][j];
+    }}
+    for(i=0;i<c;i++){
+        for(j=0;j<b;j++){
+
+    if(cb.u[i][j]==12){
+        cb.u[i][j]=11;
     }
-}
+   else if(cb.u[i][j]==11){
+        cb.u[i][j]=1;
+    }
+    else if(cb.u[i][j]==13){
+        cb.u[i][j]=1;
+    }
+    else if(cb.u[i][j]==22){
+        cb.u[i][j]=10;
+    }
+    else if(cb.u[i][j]==24){
+        cb.u[i][j]=11;
+    }
+    else if(cb.u[i][j]==20){
+        cb.u[i][j]=10;
+    }
+    else if(cb.u[i][j]==2){
+        cb.u[i][j]=1;
+    }
+
+}}
 return cb;
 }
 
